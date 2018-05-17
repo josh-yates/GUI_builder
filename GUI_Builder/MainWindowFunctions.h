@@ -27,11 +27,11 @@ namespace mwns {
 	extern HWND hNewButton;
 
 	//-----PROCEDURE-----
-	LRESULT WINAPI MainWindowProcedure(HWND, UINT, WPARAM, LPARAM);
+	LRESULT WINAPI MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP);
 
 	//-----FUNCTIONS-----
 	//MAIN WINDOW FUNCTIONS
-	void RegisterMainWindow(HINSTANCE);
+	void RegisterMainWindow(HINSTANCE hInstance);
 	void DisplayMainWindow();
 	void ClearWindowContents();
 

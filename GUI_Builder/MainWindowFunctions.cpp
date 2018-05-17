@@ -17,6 +17,9 @@ HWND mwns::hNewButton;
 LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP) {
 	switch (Message) {
 	case WM_CREATE: {
+		//TEST BUTTON CLASS
+		Interface::Button MyButton(50, 100, 20, 20, hWindow, "My button");
+		MyButton.CreateAndShow();
 		break; 
 	}
 	case WM_DESTROY:

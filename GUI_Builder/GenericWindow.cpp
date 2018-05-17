@@ -1,7 +1,7 @@
 #include "GenericWindow.h"
 
-Interface::GenericWindow::GenericWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn) :
-	Height(HeightIn), Width(WidthIn), XPos(XPosIn), YPos(YPosIn), ParentWindowPtr(&ParentWindowIn), HandlePtr(new HWND) {};
+Interface::GenericWindow::GenericWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string WindowTextIn) :
+	Height(HeightIn), Width(WidthIn), XPos(XPosIn), YPos(YPosIn), ParentWindowPtr(&ParentWindowIn), HandlePtr(new HWND), WindowText(Interface::StringToWstring(WindowTextIn)) {};
 
 Interface::GenericWindow::~GenericWindow(){}
 
@@ -42,12 +42,12 @@ void Interface::GenericWindow::SetYPos(const int YPosIn) {
 }
 
 void Interface::GenericWindow::CreateAndShow() {
-	*HandlePtr = CreateWindow(ClassName.c_str(), L"Test", WS_VISIBLE | WS_CHILD, 
+	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD, 
 		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
 }
 
 //BUTTON CLASS
-Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn):
-	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn) {
+Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn):
+	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, ButtonTextIn) {
 	ClassName = L"Button";
 }

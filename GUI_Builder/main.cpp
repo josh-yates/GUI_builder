@@ -1,6 +1,8 @@
 //GUI_BUILDER
 //personal project: interface builder for simple gui applications
 
+//TODO put parameter names in header files for functions etc so it shows in intellisense
+
 //EXTERNAL INCLUDES
 #include <Windows.h>
 #include <stdexcept>
@@ -9,6 +11,7 @@
 #include "GlobalVariables.h"
 #include "MainWindowFunctions.h"
 #include "GenericWindow.h"
+#include "InterfaceFunctions.h"
 
 //MAIN PROGRAM
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow) {

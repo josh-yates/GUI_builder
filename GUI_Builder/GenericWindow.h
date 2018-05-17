@@ -18,7 +18,7 @@ namespace Interface {
 		HWND* ParentWindowPtr;	//TODO make this part of derived child window classes if making a parent window derived class
 		int Height, Width, XPos, YPos;
 	public:
-		GenericWindow(const int, const int, const int, const int, HWND&);
+		GenericWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string WindowTextIn);
 		virtual ~GenericWindow() = 0;
 		//GETTERS
 		HWND* GetHandle();
@@ -27,10 +27,10 @@ namespace Interface {
 		int GetXPos();
 		int GetYPos();
 		//SETTERS
-		void SetHeight(const int);
-		void SetWidth(const int);
-		void SetXPos(const int);
-		void SetYPos(const int);
+		void SetHeight(const int HeightIn);
+		void SetWidth(const int WidthIn);
+		void SetXPos(const int XPosIn);
+		void SetYPos(const int YPosIn);
 		//DISPLAY CHILD WINDOW IN PARENT WINDOW
 		void CreateAndShow();
 	};
@@ -38,7 +38,7 @@ namespace Interface {
 	//TODO move derived window classes to separate header
 	class Button : public Interface::GenericWindow {
 	public:
-		Button(const int, const int, const int, const int, HWND&);
+		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn);
 	};
 }
 #endif
