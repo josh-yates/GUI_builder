@@ -51,3 +51,9 @@ Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosI
 	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, ButtonTextIn) {
 	ClassName = L"Button";
 }
+
+//TEXTBOX CLASS
+Interface::TextBox::TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn) :
+	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, TextIn) {
+	ClassName = L"Static";
+}

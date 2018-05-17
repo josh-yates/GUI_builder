@@ -40,5 +40,10 @@ namespace Interface {
 	public:
 		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn);
 	};
+
+	class TextBox : public Interface::GenericWindow {
+	public:
+		TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn);
+	};
 }
 #endif
