@@ -24,7 +24,7 @@ namespace mwns {
 	extern std::vector<HWND*> ChildrenShowingPtrs;
 
 	//START SCREEN DATA
-	extern HWND hNewButton;
+	extern Interface::Button MyButton;
 
 	//-----PROCEDURE-----
 	LRESULT WINAPI MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP);

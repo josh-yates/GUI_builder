@@ -31,6 +31,7 @@ namespace Interface {
 		void SetWidth(const int WidthIn);
 		void SetXPos(const int XPosIn);
 		void SetYPos(const int YPosIn);
+		void SetParentWindowPtr(HWND& ParentWindowIn);
 		//DISPLAY CHILD WINDOW IN PARENT WINDOW
 		void CreateAndShow();
 	};

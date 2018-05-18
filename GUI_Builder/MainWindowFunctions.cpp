@@ -11,23 +11,25 @@ int mwns::YPosMainWindow{ 100 };
 std::vector<HWND*> mwns::ChildrenShowingPtrs;
 
 //START SCREEN DATA
-HWND mwns::hNewButton;
+Interface::Button mwns::MyButton(50, 100, 20, 100, mwns::hMainWindow, "Beans please");
 
 //-----PROCEDURE-----
 LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP) {
 	switch (Message) {
 	case WM_CREATE: {
 		//TEST BUTTON CLASS
-		Interface::Button MyButton(50, 100, 20, 100, hWindow, "Beans please");
-		MyButton.CreateAndShow();
-		Interface::Button MyButton2(50, 100, 170, 100, hWindow, "More beans!!");
-		MyButton2.CreateAndShow();
-		Interface::TextBox MyTextBox(40, 100, 20, 20, hWindow, "Would you like beans?");
-		MyTextBox.CreateAndShow();
-		Interface::TextBox StorageBox(100, 100, 150, 20, hWindow, "");
-		StorageBox.CreateAndShow();
-		Interface::Button TestButton(20, 20, 10, 10, *StorageBox.GetHandle(), "a");
-		TestButton.CreateAndShow();
+		mwns::MyButton.SetParentWindowPtr(hWindow);
+		mwns::MyButton.CreateAndShow();
+		break;
+	}
+	case WM_SETCURSOR: {
+		if ((HWND)wP == *mwns::MyButton.GetHandle()) {
+			SetCursor(LoadCursor(NULL, IDC_HAND));
+		}
+		else {
+			SetCursor(LoadCursor(NULL, IDC_ARROW));
+		}
+		return(TRUE);
 		break;
 	}
 	case WM_DESTROY:

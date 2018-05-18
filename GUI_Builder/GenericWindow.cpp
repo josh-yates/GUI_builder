@@ -41,6 +41,10 @@ void Interface::GenericWindow::SetYPos(const int YPosIn) {
 	YPos = YPosIn;
 }
 
+void Interface::GenericWindow::SetParentWindowPtr(HWND& ParentWindowIn) {
+	ParentWindowPtr = &ParentWindowIn;
+}
+
 void Interface::GenericWindow::CreateAndShow() {
 	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD, 
 		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
