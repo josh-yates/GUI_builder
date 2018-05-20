@@ -14,6 +14,8 @@ std::vector<HWND*> mwns::ChildrenShowingPtrs;
 Interface::Button mwns::MyButton(50, 100, 20, 100, mwns::hMainWindow, "Beans please");
 Interface::TextBox mwns::MyText(50, 100, 10, 10, mwns::hMainWindow, "Text box");
 
+bool mwns::DraggingText{ false };
+
 //-----PROCEDURE-----
 LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP) {
 	switch (Message) {
@@ -33,6 +35,25 @@ LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, 
 			SetCursor(LoadCursor(NULL, IDC_ARROW));
 		}
 		return(TRUE);
+		break;
+	}
+	case WM_LBUTTONDOWN:
+		//TODO add checks for whether in region of text box
+		DraggingText = true;
+		break;
+	case WM_LBUTTONUP:
+		DraggingText = false;
+		break;
+	case WM_MOUSEMOVE: {
+		POINT pos;
+		pos.x = LOWORD(lP);
+		pos.y = HIWORD(lP);
+		if (DraggingText) {
+			//TODO work out actual positioning (ie set x/y pos after window has been moved)
+			mwns::MyText.SetXPos(pos.x);
+			mwns::MyText.SetYPos(pos.y);
+			SetWindowPos(*mwns::MyText.GetHandle(), NULL, pos.x, pos.y, mwns::MyText.GetWidth(), mwns::MyText.GetHeight(), NULL);
+		}
 		break;
 	}
 	case WM_DESTROY:
