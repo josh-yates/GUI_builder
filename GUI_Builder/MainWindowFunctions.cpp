@@ -12,6 +12,7 @@ std::vector<HWND*> mwns::ChildrenShowingPtrs;
 
 //START SCREEN DATA
 Interface::Button mwns::MyButton(50, 100, 20, 100, mwns::hMainWindow, "Beans please");
+Interface::TextBox mwns::MyText(50, 100, 10, 10, mwns::hMainWindow, "Text box");
 
 //-----PROCEDURE-----
 LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP) {
@@ -20,6 +21,8 @@ LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, 
 		//TEST BUTTON CLASS
 		mwns::MyButton.SetParentWindowPtr(hWindow);
 		mwns::MyButton.CreateAndShow();
+		mwns::MyText.SetParentWindowPtr(hWindow);
+		mwns::MyText.CreateAndShow();
 		break;
 	}
 	case WM_SETCURSOR: {

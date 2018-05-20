@@ -25,6 +25,7 @@ namespace mwns {
 
 	//START SCREEN DATA
 	extern Interface::Button MyButton;
+	extern Interface::TextBox MyText;
 
 	//-----PROCEDURE-----
 	LRESULT WINAPI MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP);
