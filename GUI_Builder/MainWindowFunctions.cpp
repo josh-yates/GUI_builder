@@ -17,6 +17,10 @@ LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, 
 		mwns::hMainWindow = hWindow;
 		break;
 	}
+	case WM_COMMAND:
+		switch (wP) {
+		}
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

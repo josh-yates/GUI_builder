@@ -17,6 +17,7 @@ namespace Interface {
 		std::unique_ptr<HWND> HandlePtr;
 		HWND* ParentWindowPtr;	//TODO make this part of derived child window classes if making a parent window derived class
 		int Height, Width, XPos, YPos;
+		bool WindowShowing;
 	public:
 		GenericWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string WindowTextIn);
 		virtual ~GenericWindow() = 0;
@@ -26,14 +27,20 @@ namespace Interface {
 		int GetWidth();
 		int GetXPos();
 		int GetYPos();
+		bool IsWindowShowing();
+
 		//SETTERS
 		void SetHeight(const int HeightIn);
 		void SetWidth(const int WidthIn);
 		void SetXPos(const int XPosIn);
 		void SetYPos(const int YPosIn);
 		void SetParentWindowPtr(HWND& ParentWindowIn);
-		//DISPLAY CHILD WINDOW IN PARENT WINDOW
-		void CreateAndShow();
+
+		//CHANGING HOW WINDOW IS DISPLAYED
+		void Show();
+		void Resize(const int HeightIn, const int WidthIn);
+		void Move(const int XPosIn, const int YPosIn);
+		void Hide();
 	};
 
 	//TODO move derived window classes to separate header

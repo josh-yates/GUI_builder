@@ -1,7 +1,8 @@
 #include "GenericWindow.h"
 
 Interface::GenericWindow::GenericWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string WindowTextIn) :
-	Height(HeightIn), Width(WidthIn), XPos(XPosIn), YPos(YPosIn), ParentWindowPtr(&ParentWindowIn), HandlePtr(new HWND), WindowText(Interface::StringToWstring(WindowTextIn)) {};
+	Height(HeightIn), Width(WidthIn), XPos(XPosIn), YPos(YPosIn), ParentWindowPtr(&ParentWindowIn), HandlePtr(new HWND), 
+	WindowText(Interface::StringToWstring(WindowTextIn)), WindowShowing(false) {};
 
 Interface::GenericWindow::~GenericWindow(){}
 
@@ -25,6 +26,10 @@ int Interface::GenericWindow::GetYPos() {
 	return YPos;
 }
 
+bool Interface::GenericWindow::IsWindowShowing() {
+	return WindowShowing;
+}
+
 void Interface::GenericWindow::SetHeight(const int HeightIn) {
 	Height = HeightIn;
 }
@@ -45,9 +50,28 @@ void Interface::GenericWindow::SetParentWindowPtr(HWND& ParentWindowIn) {
 	ParentWindowPtr = &ParentWindowIn;
 }
 
-void Interface::GenericWindow::CreateAndShow() {
+void Interface::GenericWindow::Show() {
 	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD, 
 		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
+void Interface::GenericWindow::Resize(const int HeightIn, const int WidthIn) {
+	Hide();
+	SetHeight(HeightIn);
+	SetWidth(WidthIn);
+	Show();
+}
+
+void Interface::GenericWindow::Move(const int XPosIn, const int YPosIn) {
+	SetXPos(XPosIn);
+	SetYPos(YPosIn);
+	SetWindowPos(*GetHandle(), NULL, XPosIn, YPosIn, GetWidth(), GetHeight(), NULL);
+}
+
+void Interface::GenericWindow::Hide() {
+	DestroyWindow(*HandlePtr);
+	WindowShowing = false;
 }
 
 //BUTTON CLASS
