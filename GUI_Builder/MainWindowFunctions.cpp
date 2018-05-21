@@ -31,16 +31,25 @@ LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, 
 		if ((HWND)wP == *mwns::MyButton.GetHandle()) {
 			SetCursor(LoadCursor(NULL, IDC_HAND));
 		}
+		else if (DraggingText) {
+			SetCursor(LoadCursor(NULL, IDC_SIZEALL));
+		}
 		else {
 			SetCursor(LoadCursor(NULL, IDC_ARROW));
 		}
 		return(TRUE);
 		break;
 	}
-	case WM_LBUTTONDOWN:
-		//TODO add checks for whether in region of text box
-		DraggingText = true;
+	case WM_LBUTTONDOWN: {
+		POINT pos;
+		pos.x = LOWORD(lP);
+		pos.y = HIWORD(lP);
+		if (pos.x >= mwns::MyText.GetXPos() && pos.x <= mwns::MyText.GetXPos() + mwns::MyText.GetWidth() &&
+			pos.y >= mwns::MyText.GetYPos() && pos.y <= mwns::MyText.GetYPos() + mwns::MyText.GetHeight()) {
+			DraggingText = true;
+		}
 		break;
+	}
 	case WM_LBUTTONUP:
 		DraggingText = false;
 		break;
@@ -49,7 +58,6 @@ LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, 
 		pos.x = LOWORD(lP);
 		pos.y = HIWORD(lP);
 		if (DraggingText) {
-			//TODO work out actual positioning (ie set x/y pos after window has been moved)
 			mwns::MyText.SetXPos(pos.x);
 			mwns::MyText.SetYPos(pos.y);
 			SetWindowPos(*mwns::MyText.GetHandle(), NULL, pos.x, pos.y, mwns::MyText.GetWidth(), mwns::MyText.GetHeight(), NULL);
