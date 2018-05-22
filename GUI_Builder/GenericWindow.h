@@ -13,7 +13,8 @@ namespace Interface {
 	class GenericWindow {
 	protected:
 		std::wstring ClassName;
-		std::wstring WindowText;		//TODO add in constructor input for window text - use string and convert
+		std::wstring WindowText;
+		std::string WindowTextString;
 		std::unique_ptr<HWND> HandlePtr;
 		HWND* ParentWindowPtr;	//TODO make this part of derived child window classes if making a parent window derived class
 		int Height, Width, XPos, YPos;
@@ -27,6 +28,7 @@ namespace Interface {
 		int GetWidth();
 		int GetXPos();
 		int GetYPos();
+		std::string GetText();
 		bool IsWindowShowing();
 
 		//SETTERS
@@ -35,6 +37,7 @@ namespace Interface {
 		void SetXPos(const int XPosIn);
 		void SetYPos(const int YPosIn);
 		void SetParentWindowPtr(HWND& ParentWindowIn);
+		void SetText(const std::string WindowTextIn);
 
 		//CHANGING HOW WINDOW IS DISPLAYED
 		void Show();

@@ -1,8 +1,8 @@
 #include "GenericWindow.h"
 
 Interface::GenericWindow::GenericWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string WindowTextIn) :
-	Height(HeightIn), Width(WidthIn), XPos(XPosIn), YPos(YPosIn), ParentWindowPtr(&ParentWindowIn), HandlePtr(new HWND), 
-	WindowText(Interface::StringToWstring(WindowTextIn)), WindowShowing(false) {};
+	Height(HeightIn), Width(WidthIn), XPos(XPosIn), YPos(YPosIn), ParentWindowPtr(&ParentWindowIn), HandlePtr(new HWND),
+	WindowText(Interface::StringToWstring(WindowTextIn)), WindowTextString(WindowTextIn), WindowShowing(false) {};
 
 Interface::GenericWindow::~GenericWindow(){}
 
@@ -24,6 +24,10 @@ int Interface::GenericWindow::GetXPos() {
 
 int Interface::GenericWindow::GetYPos() {
 	return YPos;
+}
+
+std::string Interface::GenericWindow::GetText() {
+	return WindowTextString;
 }
 
 bool Interface::GenericWindow::IsWindowShowing() {
@@ -48,6 +52,11 @@ void Interface::GenericWindow::SetYPos(const int YPosIn) {
 
 void Interface::GenericWindow::SetParentWindowPtr(HWND& ParentWindowIn) {
 	ParentWindowPtr = &ParentWindowIn;
+}
+
+void Interface::GenericWindow::SetText(const std::string WindowTextIn) {
+	WindowTextString = WindowTextIn;
+	WindowText = Interface::StringToWstring(WindowTextIn);
 }
 
 void Interface::GenericWindow::Show() {
