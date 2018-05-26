@@ -73,12 +73,6 @@ Interface::StaticWindow::StaticWindow(const int HeightIn, const int WidthIn, con
 
 Interface::StaticWindow::~StaticWindow() {};
 
-void Interface::StaticWindow::StaticWindow::Show() {
-	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD,
-		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
-	WindowShowing = true;
-}
-
 std::string Interface::StaticWindow::GetText()const {
 	return WindowTextString;
 }
@@ -89,25 +83,37 @@ void Interface::StaticWindow::SetText(const std::string WindowTextIn) {
 }
 
 //BUTTON CLASS
-Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn):
-	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, ButtonTextIn) {
+Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn, Interface::ButtonStyle StylesIn):
+	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, ButtonTextIn), Styles(StylesIn) {
 	ClassName = L"Button";
 }
 
+void Interface::Button::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD | Styles,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
 //TEXTBOX CLASS
-Interface::TextBox::TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn) :
-	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, TextIn) {
+Interface::TextBox::TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn, Interface::TextBoxStyle StylesIn) :
+	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, TextIn), Styles(StylesIn) {
 	ClassName = L"Static";
 }
 
+void Interface::TextBox::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD | Styles,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
 //INPUT BOX CLASS
-Interface::InputBox::InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string DefaultTextIn) :
-	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn), DefaultText(Interface::StringToWstring(DefaultTextIn)) {
+Interface::InputBox::InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string DefaultTextIn, Interface::InputStyle StylesIn) :
+	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn), DefaultText(Interface::StringToWstring(DefaultTextIn)), Styles(StylesIn) {
 	ClassName = L"Edit";
 };
 
 void Interface::InputBox::Show() {
-	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD,
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | Styles,
 		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
 	WindowShowing = true;
 }
