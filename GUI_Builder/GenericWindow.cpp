@@ -67,42 +67,46 @@ void Interface::GenericWindow::Hide() {
 	WindowShowing = false;
 }
 
+void Interface::GenericWindow::Redraw() {
+	Hide();
+	Show();
+}
+
 //STATIC WINDOW CLASS
-Interface::StaticWindow::StaticWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, const std::string WindowTextIn) :
-	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn), WindowText(Interface::StringToWstring(WindowTextIn)), WindowTextString(WindowTextIn) {};
+Interface::StaticWindow::StaticWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, const std::wstring WindowTextIn) :
+	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn), WindowText(WindowTextIn) {};
 
 Interface::StaticWindow::~StaticWindow() {};
 
 void Interface::StaticWindow::StaticWindow::Show() {
 	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD,
-		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+		XPos, YPos, Width, Height, *ParentWindowPtr, (HMENU)TEST_BUTTON, NULL, NULL);
 	WindowShowing = true;
 }
 
-std::string Interface::StaticWindow::GetText()const {
-	return WindowTextString;
+std::wstring Interface::StaticWindow::GetText()const {
+	return WindowText;
 }
 
-void Interface::StaticWindow::SetText(const std::string WindowTextIn) {
-	WindowTextString = WindowTextIn;
-	WindowText = Interface::StringToWstring(WindowTextIn);
+void Interface::StaticWindow::SetText(const std::wstring WindowTextIn) {
+	WindowText = WindowTextIn;
 }
 
 //BUTTON CLASS
-Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn) :
+Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring ButtonTextIn) :
 	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, ButtonTextIn) {
 	ClassName = L"Button";
 }
 
 //TEXTBOX CLASS
-Interface::TextBox::TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn) :
+Interface::TextBox::TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring TextIn) :
 	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, TextIn) {
 	ClassName = L"Static";
 }
 
 //INPUT BOX CLASS
-Interface::InputBox::InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string DefaultTextIn) :
-	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn), DefaultText(Interface::StringToWstring(DefaultTextIn)) {
+Interface::InputBox::InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	GenericWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn), DefaultText(DefaultTextIn) {
 	ClassName = L"Edit";
 };
 
@@ -110,4 +114,16 @@ void Interface::InputBox::Show() {
 	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD,
 		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
 	WindowShowing = true;
+}
+
+std::wstring Interface::InputBox::GetDefaultText()const {
+	return DefaultText;
+}
+
+std::wstring Interface::InputBox::Read()const {
+	//TODO make this not hardcoded
+	wchar_t BoxText[100000];
+	GetWindowTextW(*HandlePtr, BoxText, 100000);
+	std::wstring ReturnWString(BoxText);
+	return ReturnWString;
 }

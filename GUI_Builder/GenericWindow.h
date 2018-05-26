@@ -40,41 +40,47 @@ namespace Interface {
 		void Resize(const int HeightIn, const int WidthIn);
 		void Move(const int XPosIn, const int YPosIn);
 		void Hide();
+		void Redraw();
 	};
 
 	//TODO move derived window classes to separate header
 	class StaticWindow :public Interface::GenericWindow {
 	protected:
 		std::wstring WindowText;
-		std::string WindowTextString;
 	public:
-		StaticWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, const std::string WindowTextIn);
+		StaticWindow(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, const std::wstring WindowTextIn);
 		virtual ~StaticWindow() = 0;
 
 		//SHOW - OVERRIDDEN
 		void Show();
 
 		//TEXT RELATED FUNCTIONS
-		std::string GetText()const;
-		void SetText(const std::string WindowTextIn);
+		std::wstring GetText()const;
+		void SetText(const std::wstring WindowTextIn);
 	};
 
 	class Button : public Interface::StaticWindow {
 	public:
-		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn);
+		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring ButtonTextIn);
 	};
 
 	class TextBox : public Interface::StaticWindow {
 	public:
-		TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn);
+		TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring TextIn);
 	};
 
 	class InputBox : public Interface::GenericWindow {
 	private:
 		std::wstring DefaultText;
 	public:
-		InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string DefaultTextIn);
+		InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+		
+		//SHOW- OVERIDDEN
 		void Show();
+
+		//TEXT RELATED FUNCTIONS
+		std::wstring GetDefaultText()const;
+		std::wstring Read()const;
 	};
 }
 #endif
