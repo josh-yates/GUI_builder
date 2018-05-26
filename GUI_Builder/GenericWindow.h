@@ -10,11 +10,6 @@
 #include "InterfaceFunctions.h"
 
 namespace Interface {
-	//WINDOW STYLES
-	const enum class ButtonStyle { none = NULL, border = WS_BORDER, centerText = BS_CENTER };
-	const enum class TextBoxStyle { none = NULL, border = WS_BORDER, centerText = SS_CENTER };
-	const enum class InputStyle { none = NULL, border = WS_BORDER, centerText = ES_CENTER, vScroll = ES_AUTOVSCROLL, hScroll = ES_AUTOHSCROLL };
-
 	class GenericWindow {
 	protected:
 		std::wstring ClassName;
@@ -57,7 +52,7 @@ namespace Interface {
 		virtual ~StaticWindow() = 0;
 
 		//SHOW - OVERRIDDEN
-		virtual void Show() = 0;
+		void Show();
 
 		//TEXT RELATED FUNCTIONS
 		std::string GetText()const;
@@ -65,27 +60,20 @@ namespace Interface {
 	};
 
 	class Button : public Interface::StaticWindow {
-	private:
-		Interface::ButtonStyle Styles;
 	public:
-		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn, Interface::ButtonStyle StylesIn);
-		void Show();
+		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string ButtonTextIn);
 	};
 
 	class TextBox : public Interface::StaticWindow {
-	private:
-		Interface::TextBoxStyle Styles;
 	public:
-		TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn, Interface::TextBoxStyle StylesIn);
-		void Show();
+		TextBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string TextIn);
 	};
 
 	class InputBox : public Interface::GenericWindow {
 	private:
 		std::wstring DefaultText;
-		Interface::InputStyle Styles;
 	public:
-		InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string DefaultTextIn, Interface::InputStyle StylesIn);
+		InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::string DefaultTextIn);
 		void Show();
 	};
 }
