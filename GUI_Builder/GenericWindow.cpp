@@ -80,7 +80,7 @@ Interface::StaticWindow::~StaticWindow() {};
 
 void Interface::StaticWindow::StaticWindow::Show() {
 	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD,
-		XPos, YPos, Width, Height, *ParentWindowPtr, (HMENU)TEST_BUTTON, NULL, NULL);
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
 	WindowShowing = true;
 }
 
@@ -93,9 +93,16 @@ void Interface::StaticWindow::SetText(const std::wstring WindowTextIn) {
 }
 
 //BUTTON CLASS
-Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring ButtonTextIn) :
+Interface::Button::Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring ButtonTextIn, const int ButtonMessageIn) :
 	StaticWindow(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, ButtonTextIn) {
+	ButtonMessage = ButtonMessageIn;
 	ClassName = L"Button";
+}
+
+void Interface::Button::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD,
+		XPos, YPos, Width, Height, *ParentWindowPtr, (HMENU)ButtonMessage, NULL, NULL);
+	WindowShowing = true;
 }
 
 //TEXTBOX CLASS

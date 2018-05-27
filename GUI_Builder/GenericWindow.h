@@ -60,8 +60,11 @@ namespace Interface {
 	};
 
 	class Button : public Interface::StaticWindow {
+	private:
+		int ButtonMessage;
 	public:
-		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring ButtonTextIn);
+		Button(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring ButtonTextIn, const int ButtonMessageIn);
+		void Show();
 	};
 
 	class TextBox : public Interface::StaticWindow {
