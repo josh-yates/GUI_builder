@@ -5,8 +5,6 @@
 
 //TODO try to make wstring to string converter
 
-#define TEST_BUTTON 0
-
 #include <Windows.h>
 #include <algorithm>
 #include <string>

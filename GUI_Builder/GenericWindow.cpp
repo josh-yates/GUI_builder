@@ -79,7 +79,7 @@ Interface::StaticWindow::StaticWindow(const int HeightIn, const int WidthIn, con
 Interface::StaticWindow::~StaticWindow() {};
 
 void Interface::StaticWindow::StaticWindow::Show() {
-	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD,
+	*HandlePtr = CreateWindow(ClassName.c_str(), WindowText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER,
 		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
 	WindowShowing = true;
 }
@@ -117,12 +117,6 @@ Interface::InputBox::InputBox(const int HeightIn, const int WidthIn, const int X
 	ClassName = L"Edit";
 };
 
-void Interface::InputBox::Show() {
-	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD,
-		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
-	WindowShowing = true;
-}
-
 std::wstring Interface::InputBox::GetDefaultText()const {
 	return DefaultText;
 }
@@ -133,4 +127,60 @@ std::wstring Interface::InputBox::Read()const {
 	GetWindowTextW(*HandlePtr, BoxText, 100000);
 	std::wstring ReturnWString(BoxText);
 	return ReturnWString;
+}
+
+//DERIVED INPUT BOXES
+
+Interface::BasicInput::BasicInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	InputBox(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, DefaultTextIn) {};
+
+void Interface::BasicInput::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
+Interface::AllScrollInput::AllScrollInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	InputBox(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, DefaultTextIn) {};
+
+void Interface::AllScrollInput::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
+Interface::HScrollInput::HScrollInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	InputBox(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, DefaultTextIn) {};
+
+void Interface::HScrollInput::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
+Interface::VScrollInput::VScrollInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	InputBox(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, DefaultTextIn) {};
+
+void Interface::VScrollInput::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER | ES_MULTILINE | ES_AUTOVSCROLL,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
+Interface::PasswordInput::PasswordInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	InputBox(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, DefaultTextIn) {};
+
+void Interface::PasswordInput::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL | ES_PASSWORD,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
+}
+
+Interface::NumberInput::NumberInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn) :
+	InputBox(HeightIn, WidthIn, XPosIn, YPosIn, ParentWindowIn, DefaultTextIn) {};
+
+void Interface::NumberInput::Show() {
+	*HandlePtr = CreateWindow(ClassName.c_str(), DefaultText.c_str(), WS_VISIBLE | WS_CHILD | WS_BORDER | ES_NUMBER,
+		XPos, YPos, Width, Height, *ParentWindowPtr, NULL, NULL, NULL);
+	WindowShowing = true;
 }

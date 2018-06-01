@@ -10,26 +10,15 @@ int mwns::XPosMainWindow{ 100 };
 int mwns::YPosMainWindow{ 100 };
 std::vector<HWND*> mwns::ChildrenShowingPtrs;
 
-Interface::Button mwns::testButton(40, 40, 10, 10, mwns::hMainWindow, L":)", TEST_BUTTON);
-Interface::TextBox mwns::testText(40, 40, 10, 60, mwns::hMainWindow, L":D");
-Interface::InputBox mwns::testInput(40, 40, 10, 110, mwns::hMainWindow, L":P");
-
 //-----PROCEDURE-----
 LRESULT WINAPI mwns::MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP) {
 	switch (Message) {
 	case WM_CREATE: {
 		mwns::hMainWindow = hWindow;
-		mwns::testButton.Show();
-		mwns::testText.Show();
-		mwns::testInput.Show();
 		break;
 	}
 	case WM_COMMAND:
 		switch (wP) {
-		case TEST_BUTTON:
-			mwns::testText.SetText(mwns::testInput.Read());
-			mwns::testText.Redraw();
-			break;
 		}
 		break;
 	case WM_DESTROY:

@@ -23,10 +23,6 @@ namespace mwns {
 	extern int YPosMainWindow;
 	extern std::vector<HWND*> ChildrenShowingPtrs;
 
-	extern Interface::Button testButton;
-	extern Interface::TextBox testText;
-	extern Interface::InputBox testInput;
-
 	//-----PROCEDURE-----
 	LRESULT WINAPI MainWindowProcedure(HWND hWindow, UINT Message, WPARAM wP, LPARAM lP);
 

@@ -73,17 +73,61 @@ namespace Interface {
 	};
 
 	class InputBox : public Interface::GenericWindow {
-	private:
+	protected:
 		std::wstring DefaultText;
 	public:
 		InputBox(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
 		
 		//SHOW- OVERIDDEN
-		void Show();
+		void Show() = 0;
 
 		//TEXT RELATED FUNCTIONS
 		std::wstring GetDefaultText()const;
 		std::wstring Read()const;
+	};
+
+	//DERIVED INPUT BOXES
+
+	class BasicInput : public Interface::InputBox {
+	public:
+		BasicInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+
+		void Show();
+	};
+
+	class AllScrollInput : public Interface::InputBox {
+	public:
+		AllScrollInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+
+		void Show();
+	};
+
+	class HScrollInput : public Interface::InputBox {
+	public:
+		HScrollInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+
+		void Show();
+	};
+
+	class VScrollInput : public Interface::InputBox {
+	public:
+		VScrollInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+
+		void Show();
+	};
+
+	class PasswordInput : public Interface::InputBox {
+	public:
+		PasswordInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+
+		void Show();
+	};
+
+	class NumberInput : public Interface::InputBox {
+	public:
+		NumberInput(const int HeightIn, const int WidthIn, const int XPosIn, const int YPosIn, HWND& ParentWindowIn, std::wstring DefaultTextIn);
+
+		void Show();
 	};
 }
 #endif
